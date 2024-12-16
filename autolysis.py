@@ -41,7 +41,7 @@ class AUTOLYSIS:
       }
       return summary
 
-    def generate_visualizations(self, autolysis_output: Dict[str, Any]):
+    def visualizations(self, autolysis_output: Dict[str, Any]):
       #data prep
       numeric_df = selfdf.select_dtypes(include=['number'])
       drop_col = [col for col in numeric_df.columns if col.lower().endswith('id')]
@@ -95,8 +95,10 @@ class AUTOLYSIS:
 
     def run(self):
         autolysis_output = self.get_summary()
-        self.visualization(autolysis_output)
+        self.visualizations(autolysis_output)
         story = self.storytime(autolysis_output)
+        story += "### Correlation Heatmap\n![Correlation Heatmap](correlation_heatmap.png)\n"
+        story += "### Numeric Distributions\n![Numeric Distributions](numeric_distributions.png)\n"
         
         with open('README.md', 'w', encoding='utf-8') as f:
             f.write(story)
