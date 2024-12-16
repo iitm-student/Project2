@@ -88,7 +88,7 @@ class AUTOLYSIS:
         if response.status_code == 200:
           data = response.json()
           print("Success")
-          return data.get('choices', [{}])[0].get('message', {}).get('content', 'No message content available')
+          return data['choices'][0]['message']['content'].strip()
         else:
           print(f"Error: {response.status_code}:{response.text}")
           return "Error"
